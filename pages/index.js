@@ -6,9 +6,6 @@ import ChartBox from "../components/ChartBox"
 
 import { styled } from "styled-components"
 
-// Data
-import { getSheetData } from '../libs/sheets';
-
 const Body = styled.main`
 max-width: 1440px;
 margin: 0 auto;
@@ -27,8 +24,7 @@ width: 100%;
 gap: 32px;
 `
 
-const Home = ({ data }) => {
-  console.log(data)
+const Home = () => {
 
   return (
     <>
@@ -56,13 +52,3 @@ const Home = ({ data }) => {
 }
 
 export default Home
-
-export async function getStaticProps(context) {
-  const data = await getSheetData();
-  return {
-    props: {
-      sensehat_weather: data.slice(1, data.length), // remove sheet header
-    },
-    revalidate: 1, // In seconds
-  };
-}
