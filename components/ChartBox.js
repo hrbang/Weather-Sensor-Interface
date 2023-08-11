@@ -14,7 +14,7 @@ const ChartElement = styled.div`
 
 const Canvas = styled.canvas`
     width: 100%;
-    height: 500px;
+    height: 100%;
 `
 
 const ChartHeader = styled.div`
@@ -43,7 +43,7 @@ const ChartText = styled.p`
     max-width: 350px;
 `
 
-const ChartBox = ({ chartId }) => {
+const ChartBox = ({ chartId, title, text }) => {
 
     useEffect(() => {
         var ctx = document.getElementById(chartId).getContext('2d');
@@ -61,13 +61,13 @@ const ChartBox = ({ chartId }) => {
                 ]
             },
         });
-    }, [])
+    }, [chartId])
 
     return (
         <ChartElement>
             <ChartHeader>
-                <ChartTitle>Chart Title</ChartTitle>
-                <ChartText>En graf over den data som vores Sensehat opfanger af Temperatur i lokalet</ChartText>
+                <ChartTitle>{title}</ChartTitle>
+                <ChartText>{text}</ChartText>
             </ChartHeader>
             <Canvas id={chartId}></Canvas>
         </ChartElement>

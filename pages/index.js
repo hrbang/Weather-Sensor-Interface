@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Head from 'next/head'
 
 // Components
@@ -25,6 +27,18 @@ gap: 32px;
 `
 
 const Home = () => {
+  const [data, setData] = useState([]);
+  const [temp, setTemp] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/getData')
+      .then(response => {
+        setData(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data: ', error);
+      });
+  }, []);
 
   return (
     <>
@@ -41,10 +55,9 @@ const Home = () => {
         <header>
           <Navbar />
         </header>
-        {/* <h1>{data}</h1> */}
         <Charts>
-          <ChartBox chartId="temperatur" />
-          <ChartBox chartId="humidity" />
+          <ChartBox title="Temperature" text="En graf over den data som vores Sensehat opfanger af Temperatur i lokalet" chartId="temperatur" />
+          <ChartBox title="Humidity" text="En graf over den data som vores Sensehat opfanger af Fugtigheden i lokalet" chartId="humidity" />
         </Charts>
       </Body>
     </>
