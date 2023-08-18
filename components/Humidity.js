@@ -46,8 +46,9 @@ const ChartText = styled.p`
     max-width: 350px;
 `
 
-const Temperature = () => {
+const Humidity = () => {
     const [data, setData] = useState([]);
+    const [hours, setHours] = useState(0);
 
     useEffect(() => {
         async function fetchData() {
@@ -62,8 +63,8 @@ const Temperature = () => {
         labels: data.map(item => item.dateTime),
         datasets: [
             {
-                label: 'Temperature',
-                data: data.map(item => item.temperature),
+                label: 'Humidity',
+                data: data.map(item => item.humidity),
                 backgroundColor: 'rgb(224,144,223, 0.4)',
                 fill: true,
                 pointBackgroundColor: '#8800C7',
@@ -76,8 +77,8 @@ const Temperature = () => {
     return (
         <ChartElement>
             <ChartHeader>
-                <ChartTitle>Temperature</ChartTitle>
-                <ChartText>En graf over den data som vores Sensehat opfanger af Temperatur i lokalet</ChartText>
+                <ChartTitle>Humidity</ChartTitle>
+                <ChartText>En graf over den data som vores Sensehat opfanger af fugtighed i lokalet</ChartText>
             </ChartHeader>
             <Line data={chartData} />
 
@@ -85,4 +86,4 @@ const Temperature = () => {
     )
 }
 
-export default Temperature
+export default Humidity

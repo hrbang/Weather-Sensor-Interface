@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Head from 'next/head'
+import Head from 'next/head';
 
 // Components
-import Navbar from "../components/Navbar"
-import Temperature from "../components/Temperature"
+import Humidity from "../components/Humidity";
+import Navbar from "../components/Navbar";
+import Temperature from "../components/Temperature";
 
-import { styled } from "styled-components"
+import { styled } from "styled-components";
 
 const Body = styled.main`
 max-width: 1440px;
@@ -44,6 +43,7 @@ const Home = () => {
         </header>
         <Charts>
           <Temperature />
+          <Humidity />
         </Charts>
       </Body>
     </>
