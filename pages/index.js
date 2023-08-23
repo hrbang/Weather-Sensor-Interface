@@ -26,7 +26,6 @@ gap: 32px;
 `
 
 const Home = () => {
-  console.log("HOST: ", process.env.NEXT_PUBLIC_DB_HOST, "USER: ", process.env.NEXT_PUBLIC_DB_USER, "PASSWORD: ", process.env.NEXT_PUBLIC_DB_PASS, "DATABASE: ", process.env.NEXT_PUBLIC_DB_NAME)
 
   return (
     <>
