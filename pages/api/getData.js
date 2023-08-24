@@ -19,3 +19,9 @@ export default async function handler(req, res) {
         return res.status(500).json({ message: 'Internal server error' });
     }
 }
+
+export const config = {
+    api: {
+        responseLimit: false,
+    },
+}
