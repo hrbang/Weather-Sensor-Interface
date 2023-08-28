@@ -53,7 +53,7 @@ const Temperature = () => {
         async function fetchData() {
             const response = await fetch('/api/getData');
             const jsonData = await response.json();
-            setData(jsonData.slice(-50));
+            setData(jsonData);
         }
         fetchData();
     }, [setData, data]);
@@ -70,8 +70,6 @@ const Temperature = () => {
             },
         ],
     };
-
-    console.log(data);
 
     return (
         <ChartElement>

@@ -48,13 +48,12 @@ const ChartText = styled.p`
 
 const Humidity = () => {
     const [data, setData] = useState([]);
-    const [hours, setHours] = useState(0);
 
     useEffect(() => {
         async function fetchData() {
             const response = await fetch('/api/getData');
             const jsonData = await response.json();
-            setData(jsonData.slice(-50));
+            setData(jsonData);
         }
         fetchData();
     }, [setData, data]);
@@ -71,8 +70,6 @@ const Humidity = () => {
             },
         ],
     };
-
-    console.log(data);
 
     return (
         <ChartElement>
