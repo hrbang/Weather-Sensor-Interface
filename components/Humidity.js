@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 
 import { Line } from 'react-chartjs-2';
@@ -59,7 +60,7 @@ const Humidity = () => {
     }, [setData, data]);
 
     const chartData = {
-        labels: data.map(item => item.dateTime),
+        labels: data.map(item => moment(item.dateTime).format('MMM Do YYYY')),
         datasets: [
             {
                 label: 'Humidity',

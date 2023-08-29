@@ -8,12 +8,17 @@ import Temperature from "../components/Temperature";
 import { styled } from "styled-components";
 
 const Body = styled.main`
-max-width: 1440px;
-margin: 0 auto;
-padding: 0px 32px;
-height: 100%;
-width: 100%;
 position: relative;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 32px;
+`
+
+const Container = styled.div`
+max-width: 1440px;
+        margin: 0px auto 0 auto;
+        position: relative;
+        padding: 0px 32px;
 `
 
 const Charts = styled.div`
@@ -23,6 +28,7 @@ justify-content: space-between;
 align-items: center;
 width: 100%;
 gap: 32px;
+flex-wrap: wrap;
 `
 
 const Home = () => {
@@ -39,13 +45,13 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Body>
-        <header>
+        <Container>
           <Navbar />
-        </header>
-        <Charts>
-          <Temperature />
-          <Humidity />
-        </Charts>
+          <Charts>
+            <Temperature />
+            <Humidity />
+          </Charts>
+        </Container>
       </Body>
     </>
   )
