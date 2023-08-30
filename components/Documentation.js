@@ -17,7 +17,7 @@ const Documentation = () => {
     const [markdown, setMarkdown] = useState("")
 
     useEffect(() => {
-        import(`../Readme.md`)
+        import(`../public/Readme.md`)
             .then((res) => {
                 setMarkdown(res.default)
             })
