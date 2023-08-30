@@ -50,7 +50,7 @@ const ChartText = styled.p`
     max-width: 350px;
 `
 
-const Temperature = () => {
+const Pressure = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -76,7 +76,7 @@ const Temperature = () => {
             const timestamp = new Date(item.dateTime);
             const dateKey = timestamp.toISOString().split('T')[0]; // Extract date part
             const hourKey = timestamp.getUTCHours();
-            const value = item.temperature;
+            const value = item.pressure;
 
             if (!highestValuesByDayAndHour[dateKey]) {
                 highestValuesByDayAndHour[dateKey] = {};
@@ -106,7 +106,7 @@ const Temperature = () => {
         labels: processedData.map((item) => moment(item.timestamp.toISOString()).format('DD/MM/YYYY HH:mm')),
         datasets: [
             {
-                label: 'Temperatur',
+                label: 'Lufttryk (Pascal)',
                 data: processedData.map((item) => item.value.toFixed(2)),
                 backgroundColor: 'rgb(224,144,223, 0.4)',
                 fill: true,
@@ -142,8 +142,8 @@ const Temperature = () => {
         <motion.div initial="hidden" animate="animate" variants={showTemperature} style={{ width: "100%" }}>
             <ChartElement>
                 <ChartHeader>
-                    <ChartTitle>Temperature</ChartTitle>
-                    <ChartText>En graf over den data som vores Sensehat opfanger af Temperatur i lokalet</ChartText>
+                    <ChartTitle>Lufttryk</ChartTitle>
+                    <ChartText>En graf over den data som vores Sensehat opfanger af Lufttryk i lokalet</ChartText>
                 </ChartHeader>
                 <Line data={chartData} />
             </ChartElement>
@@ -152,4 +152,4 @@ const Temperature = () => {
     )
 }
 
-export default Temperature
+export default Pressure

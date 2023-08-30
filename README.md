@@ -1,38 +1,158 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Minimax Algorithm Tic-Tac-Toe
 
-## Getting Started
+## How does it works?
 
-First, run the development server:
+The algorithm search, recursively, the best move that leads the _Max_ player to win or not lose (draw). It consider the current state of the game and the available moves at that state, then for each valid move it plays (alternating _min_ and _max_) until it finds a terminal state (win, draw or lose).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+## Understanding Minimax
+
+The algorithm was studied by the book Algorithms in a Nutshell (George Heineman; Gary Pollice; Stanley Selkow, 2009). Pseudocode (adapted):
+
+```python
+minimax(state, depth, player)
+
+	if (player = max) then
+		best = [null, -infinity]
+	else
+		best = [null, +infinity]
+
+	if (depth = 0 or gameover) then
+		score = evaluate this state for player
+		return [null, score]
+
+	for each valid move m for player in state s do
+		execute move m on s
+		[move, score] = minimax(s, depth - 1, -player)
+		undo move m on s
+
+		if (player = max) then
+			if score > best.score then best = [move, score]
+		else
+			if score < best.score then best = [move, score]
+
+	return best
+end
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Now we'll see each part of this pseudocode with Python implementation. The Python implementation is available at this repository. First of all, consider it:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+> board = [
+> [0, 0, 0],
+> [0, 0, 0],
+> [0, 0, 0]
+> ]
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+> MAX = +1
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+> MIN = -1
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The MAX may be X or O and the MIN may be O or X, whatever. The board is 3x3.
 
-## Learn More
+```python
+def minimax(state, depth, player):
+```
 
-To learn more about Next.js, take a look at the following resources:
+-   **state**: the current board in tic-tac-toe (node)
+-   **depth**: index of the node in the game tree
+-   **player**: may be a _MAX_ player or _MIN_ player
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```python
+if player == MAX:
+	return [-1, -1, -infinity]
+else:
+	return [-1, -1, +infinity]
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Both players start with your worst score. If player is MAX, its score is -infinity. Else if player is MIN, its score is +infinity. **Note:** _infinity_ is an alias for inf (from math module, in Python).
 
-## Deploy on Vercel
+The best move on the board is [-1, -1] (row and column) for all.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```python
+if depth == 0 or game_over(state):
+	score = evaluate(state)
+	return score
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+If the depth is equal zero, then the board hasn't new empty cells to play. Or, if a player wins, then the game ended for MAX or MIN. So the score for that state will be returned.
+
+-   If MAX won: return +1
+-   If MIN won: return -1
+-   Else: return 0 (draw)
+
+Now we'll see the main part of this code that contains recursion.
+
+```python
+for cell in empty_cells(state):
+	x, y = cell[0], cell[1]
+	state[x][y] = player
+	score = minimax(state, depth - 1, -player)
+	state[x][y] = 0
+	score[0], score[1] = x, y
+```
+
+For each valid moves (empty cells):
+
+-   **x**: receives cell row index
+-   **y**: receives cell column index
+-   **state[x][y]**: it's like board[available_row][available_col] receives MAX or MIN player
+-   **score = minimax(state, depth - 1, -player)**:
+    -   state: is the current board in recursion;
+    -   depth -1: index of the next state;
+    -   -player: if a player is MAX (+1) will be MIN (-1) and vice versa.
+
+The move (+1 or -1) on the board is undo and the row, column are collected.
+
+The next step is compare the score with best.
+
+```python
+if player == MAX:
+	if score[2] > best[2]:
+		best = score
+else:
+	if score[2] < best[2]:
+		best = score
+```
+
+For MAX player, a bigger score will be received. For a MIN player, a lower score will be received. And in the end, the best move is returned. Final algorithm:
+
+```python
+def minimax(state, depth, player):
+	if player == MAX:
+		best = [-1, -1, -infinity]
+	else:
+		best = [-1, -1, +infinity]
+
+	if depth == 0 or game_over(state):
+		score = evaluate(state)
+		return [-1, -1, score]
+
+	for cell in empty_cells(state):
+		x, y = cell[0], cell[1]
+		state[x][y] = player
+		score = minimax(state, depth - 1, -player)
+		state[x][y] = 0
+		score[0], score[1] = x, y
+
+		if player == MAX:
+			if score[2] > best[2]:
+				best = score
+		else:
+			if score[2] < best[2]:
+				best = score
+
+	return best
+```
+
+## Viewing the game tree
+
+Below, the best move is on the middle because the max value is on 2nd node on left.
+
+![Tux, the Linux mascot](tic-tac-toe-minimax-game-tree.png)
+
+Take a look that the depth is equal the valid moves on the board. The complete code is available in **py_version/**.
+
+Simplified game tree:
+
+![Tux, the Linux mascot](simplified-g-tree.png)
+
+That tree has 11 nodes. The full game tree has 549.946 nodes! You can test it putting a static global variable in your program and incrementing it for each minimax function call per turn.

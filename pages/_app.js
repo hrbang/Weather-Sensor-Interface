@@ -1,3 +1,4 @@
+import { AnimatePresence } from "framer-motion";
 import "../styles/app.css";
 
 import { createGlobalStyle } from 'styled-components';
@@ -15,7 +16,9 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Component {...pageProps} />
+      <AnimatePresence mode="wait">
+        <Component {...pageProps} />
+      </AnimatePresence>
     </>
   )
 }

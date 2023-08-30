@@ -7,6 +7,8 @@ import Charts from '../components/Charts'
 import Documentation from '../components/Documentation'
 import Navbar from '../components/Navbar'
 
+// Libs
+
 const Body = styled.main`
     position: relative;
     width: 100%;
@@ -47,16 +49,9 @@ const Home = () => {
 					{activeContent === 'charts' && <Charts />}
 					{activeContent === 'documentation' && <Documentation />}
 				</Container>
-			</Body>
+			</Body >
 		</>
 	)
 }
 
 export default Home
-
-{
-	/* <Charts>
-			<Temperature />
-			<Humidity />
-		  </Charts> */
-}
