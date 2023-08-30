@@ -72,6 +72,8 @@ const Temperature = () => {
         ],
     };
 
+    console.log(data.map(item => item.dateTime))
+
     return (
         <ChartElement>
             <ChartHeader>

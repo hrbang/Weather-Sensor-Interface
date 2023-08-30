@@ -1,17 +1,15 @@
 import Head from 'next/head';
 
 // Components
-import Humidity from "../components/Humidity";
-import Navbar from "../components/Navbar";
-import Temperature from "../components/Temperature";
-
 import { styled } from "styled-components";
+import Humidity from "../components/Humidity";
+import Sidebar from "../components/Sidebar";
+import Temperature from "../components/Temperature";
 
 const Body = styled.main`
 position: relative;
     width: 100%;
     height: 100%;
-    margin-bottom: 32px;
 `
 
 const Container = styled.div`
@@ -45,8 +43,8 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Body>
+        <Sidebar />
         <Container>
-          <Navbar />
           <Charts>
             <Temperature />
             <Humidity />

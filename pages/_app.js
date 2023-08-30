@@ -1,5 +1,4 @@
-import { styled } from "styled-components"
-import "../styles/app.css"
+import "../styles/app.css";
 
 import { createGlobalStyle } from 'styled-components';
 
@@ -7,7 +6,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    background: #e5e5e5;
+    background: #F4F7FE;
     font-family: "Poppins", sans-serif;
   }
 `;

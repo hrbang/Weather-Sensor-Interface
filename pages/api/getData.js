@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     }
 
     try {
-        const query = 'SELECT * FROM data ORDER BY dataId ASC LIMIT 50';
+        const query = 'SELECT * FROM ( SELECT * FROM data ORDER BY dataId DESC LIMIT 50 )Var1 ORDER BY dataId ASC';
         db.query(query, (err, result) => {
             if (err) {
                 console.error('Error executing query: ', err);
