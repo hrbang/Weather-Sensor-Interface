@@ -1,4 +1,4 @@
-import { ChartPieIcon, DocumentIcon } from "@heroicons/react/24/outline";
+import { ChartPieIcon, CodeBracketIcon, DocumentIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
 import { styled } from "styled-components";
 
@@ -8,6 +8,9 @@ const Nav = styled.nav`
     left: 50%;
     transform: translateX(-50%);
     z-index: 100;
+    display: flex;
+    gap: 16px;
+    align-items: center;
 `
 
 const NavInner = styled.div`
@@ -39,6 +42,48 @@ const NavItem = styled.button`
     svg {
         margin-right: 8px;
         stroke-width: 2px;
+
+        @media (max-width: 572px) {
+            margin-right: 0px;
+        }
+
+    }
+`
+
+const TextSpan = styled.span`
+font-size: 18px;
+font-weight: 700;
+color: #252525;
+text-decoration: none;
+
+    @media (max-width: 572px) {
+        display: none;
+    }
+
+`
+
+const NavLink = styled.a`
+    font-size: 18px;
+    font-weight: 700;
+    color: #252525;
+    text-decoration: none;
+    background-color: ${props => props.isactive ? '#25f595' : 'transparent'};
+    padding: 10px 20px;
+    border-radius: 100vw;
+    border: none;
+    outline: none;
+    transition: background-color 220ms ease-in-out, color 220ms ease-in-out;
+    display: flex;
+    align-items: center;
+
+    svg {
+        margin-right: 8px;
+        stroke-width: 2px;
+
+        @media (max-width: 572px) {
+            margin-right: 0px;
+        }
+
     }
 
 `
@@ -71,12 +116,20 @@ const Navbar = ({ isActive, onClickHandler }) => {
                 <NavInner>
                     <NavItem isactive={isActive === "charts"} onClick={() => onClickHandler("charts")}>
                         <ChartPieIcon height={24} width={24} />
-                        Data charts
+                        <TextSpan>Grafer</TextSpan>
                     </NavItem>
-                    <NavItem isactive={isActive === "documentation"} onClick={() => onClickHandler("documentation")}>
+                    <NavItem isactive={isActive === "code"} onClick={() => onClickHandler("code")}>
+                        <CodeBracketIcon height={24} width={24} />
+                        <TextSpan>Kode</TextSpan>
+                    </NavItem>
+                </NavInner>
+            </motion.div>
+            <motion.div initial="hidden" animate="animate" variants={showNavbar}>
+                <NavInner>
+                    <NavLink href="https://docs.google.com/document/d/1nbsZ53UbgA2VvNpKRYx5zaT7UFbqohrEoKR39F6Qa-k/edit?usp=sharing" target="_blank">
                         <DocumentIcon height={24} width={24} />
-                        Documentation
-                    </NavItem>
+                        <TextSpan>Dokumentation</TextSpan>
+                    </NavLink>
                 </NavInner>
             </motion.div>
         </Nav>

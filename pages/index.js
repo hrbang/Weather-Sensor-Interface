@@ -47,7 +47,7 @@ const Home = () => {
 				<Container>
 					<Navbar isActive={activeContent} onClickHandler={handleLinkClick} />
 					{activeContent === 'charts' && <Charts />}
-					{activeContent === 'documentation' && <Documentation />}
+					{activeContent === 'code' && <Documentation />}
 				</Container>
 			</Body >
 		</>
