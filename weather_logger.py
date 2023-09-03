@@ -8,15 +8,15 @@ import datetime
 import pymysql
 
 # General indstillinger for vores Script
-prog_name = "weather_logger.py"
-device = 'raspberrypi'
+prog_name = ""
+device = ''
 
 # Indstillinger for vores Database connection
-hostname = '64.226.86.202'
-port = 3306
-username = 'raspberry'
-password = 'adminpassword124'
-database = 'weather_data'
+hostname = ''
+port = ""
+username = ''
+password = ''
+database = ''
 
 # Init af vores SenseHat()
 sense = SenseHat()
